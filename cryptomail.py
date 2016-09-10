@@ -39,7 +39,7 @@ class Email(object):
     def send(self):
         keyid = self.find_keyid()
         if not keyid:
-            print("ERROR: Haven't found a key for {0}".format(self.recipient))
+            print("ERROR: not found a key for {0}".format(self.recipient))
             return
 
         encrypted_data = self.gpg.encrypt(self.body, keyid)
@@ -57,9 +57,8 @@ class Email(object):
 class Scheduler(object):
 
     def run(self, email_path):
-        # Check if the mail file exists.
         if not os.path.exists(email_path):
-            print("ERROR: the email file does not exist")
+            print("ERROR: email file does not exist")
             return
 
         with open(email_path, 'r') as handle:
